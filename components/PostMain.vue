@@ -23,7 +23,7 @@
         <button
           class="border text-[15px] px-[21px] py-0.5 border-[#bc2cf0] text-[#bc2cf0] hover:bg-[#ffeef2] font-semibold rounded-md"
         >
-          Follow
+          Obserwuj
         </button>
       </div>
       <div

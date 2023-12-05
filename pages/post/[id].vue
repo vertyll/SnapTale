@@ -35,7 +35,7 @@
       <img
         class="absolute top-[18px] left-[70px] rounded-full lg:mx-0 mx-auto"
         width="45"
-        src="~/assets/images/snaptale-logo-small.png"
+        src="~/assets/images/snaptale-logo-mini.png"
       />
 
       <video
