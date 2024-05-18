@@ -7,7 +7,7 @@
     <div>
       <SideNav />
     </div>
-    <NuxtLayout />
+    <slot />
   </div>
 </template>
 
