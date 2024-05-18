@@ -1,8 +1,38 @@
 # SnapTale
 
-## Setup
+## Założenia projektu 
 
-Make sure to install the dependencies:
+Aplikacja internetowa SnapTale wzorująca się na założeniach aplikacji TikTok
+
+## Stos technologiczny
+
+### Frontend:
+- Nuxt.js
+- Vue.js
+- Axios
+- Tailwind CSS do szybkiego stylowania komponentów
+- Pinia do zarządzania stanem aplikacji
+
+### Inne:
+- nuxt-icon dla ikon w aplikacji
+
+## Zdjęcia poglądowe
+
+![Widok projektu](https://raw.githubusercontent.com/vertyll/SnapTale/main/screenshots/snaptale4.png)
+![Widok projektu](https://raw.githubusercontent.com/vertyll/SnapTale/main/screenshots/snaptale2.png)
+![Widok projektu](https://raw.githubusercontent.com/vertyll/SnapTale/main/screenshots/snaptale5.png)
+![Widok projektu](https://raw.githubusercontent.com/vertyll/SnapTale/main/screenshots/snaptale1.png)
+![Widok projektu](https://raw.githubusercontent.com/vertyll/SnapTale/main/screenshots/snaptale3.png)
+
+## Informacje dodatkowe
+
+Aplikacja łączy się z aplikacją API - "SnapTale - API", która również jest dostępna w repozytrium na GitHub.
+
+## Instrukcja instalacji projektu
+
+Pobieramy projekt na lokalne środowisko
+
+Instalujemy zależności:
 
 ```bash
 # npm
@@ -18,7 +48,7 @@ yarn install
 bun install
 ```
 
-## Development Server
+## Środowisko deweloperskie
 
 Start the development server on `http://localhost:3000`:
 
@@ -36,9 +66,9 @@ yarn dev
 bun run dev
 ```
 
-## Production
+## Środowisko produkcyjne
 
-Build the application for production:
+Budowanie aplikacji na produkcję:
 
 ```bash
 # npm
@@ -54,7 +84,7 @@ yarn build
 bun run build
 ```
 
-Locally preview production build:
+Lokalny podgląd zbudowanej aplikacji produkcyjnej:
 
 ```bash
 # npm
