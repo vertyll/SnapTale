@@ -107,26 +107,35 @@ const router = useRouter();
 let video = ref(null);
 
 onMounted(() => {
-  let observer = new IntersectionObserver(
-    function (entries) {
-      if (entries[0].isIntersecting) {
-        console.log("Element is playing" + post.value.id);
-        video.value.play();
-      } else {
-        console.log("Element is paused" + post.value.id);
-        video.value.pause();
-      }
-    },
-    { threshold: [0.6] }
-  );
+  const postElement = document.getElementById(`PostMain-${post.value.id}`);
+  if (postElement) {
+    let observer = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting) {
+          console.log("Element is playing" + post.value.id);
+          if (video.value) {
+            video.value.play();
+          }
+        } else {
+          console.log("Element is paused" + post.value.id);
+          if (video.value) {
+            video.value.pause();
+          }
+        }
+      },
+      { threshold: [0.6] }
+    );
 
-  observer.observe(document.getElementById(`PostMain-${post.value.id}`));
+    observer.observe(postElement);
+  }
 });
 
 onBeforeUnmount(() => {
-  video.value.pause();
-  video.value.currentTime = 0;
-  video.value.src = "";
+  if (video.value) {
+    video.value.pause();
+    video.value.currentTime = 0;
+    video.value.src = "";
+  }
 });
 
 const isLiked = computed(() => {
