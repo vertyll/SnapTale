@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
@@ -10,5 +10,5 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   instance.defaults.withXSRFToken = true;
 
-  nuxtApp.provide('axios', instance);
+  nuxtApp.provide("axios", instance);
 });

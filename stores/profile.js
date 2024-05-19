@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia';
-import { useNuxtApp } from '#app';
+import { defineStore } from "pinia";
+import { useNuxtApp } from "#app";
 
-export const useProfileStore = defineStore('profile', {
+export const useProfileStore = defineStore("profile", {
   state: () => ({
-    id: '',
-    name: '',
-    bio: '',
-    image: '',
+    id: "",
+    name: "",
+    bio: "",
+    image: "",
     post: null,
     posts: null,
     allLikes: 0,
@@ -16,7 +16,7 @@ export const useProfileStore = defineStore('profile', {
       this.resetUser();
       const { $axios } = useNuxtApp();
       let res = await $axios.get(`/api/profiles/${id}`);
-      
+
       this.$state.id = res.data.user[0].id;
       this.$state.name = res.data.user[0].name;
       this.$state.bio = res.data.user[0].bio;
@@ -36,11 +36,11 @@ export const useProfileStore = defineStore('profile', {
       }
     },
 
-    resetUser() {      
-      this.$state.id = '';
-      this.$state.name = '';
-      this.$state.bio = '';
-      this.$state.image = '';
+    resetUser() {
+      this.$state.id = "";
+      this.$state.name = "";
+      this.$state.bio = "";
+      this.$state.image = "";
       this.$state.posts = null;
     },
   },
