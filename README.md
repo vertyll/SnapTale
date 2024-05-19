@@ -50,7 +50,7 @@ bun install
 
 ## Środowisko deweloperskie
 
-Start the development server on `http://localhost:3000`:
+Wystartuj serwer deweloperski na `http://localhost:3000`:
 
 ```bash
 # npm
