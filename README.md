@@ -7,7 +7,7 @@ Aplikacja internetowa SnapTale wzorująca się na założeniach aplikacji TikTok
 
 ## Stos technologiczny
 
-### Frontend:
+### Front-end:
 - Nuxt.js
 - Vue.js
 - Axios
