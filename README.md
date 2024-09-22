@@ -14,8 +14,8 @@ Aplikacja internetowa SnapTale wzorująca się na założeniach aplikacji TikTok
 - Tailwind CSS do szybkiego stylowania komponentów
 - Pinia do zarządzania stanem aplikacji
 
-### Autoryzacja:
-- autoryzacja za pomocą sesji
+### Uwierzytelnianie:
+- uwierzytelnianie za pomocą sesji
 
 ### Inne:
 - nuxt-icon dla ikon w aplikacji
