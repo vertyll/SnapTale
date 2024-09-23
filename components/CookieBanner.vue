@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showBanner" class="fixed bottom-0 left-0 right-0 p-4 shadow-md z-50 bg-light border-t">
+    <div v-if="showBanner" class="fixed bottom-0 left-0 right-0 p-4 shadow-md z-50 bg-white border-t">
         <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center">
             <p class="text-sm text-gray-700 mb-2 sm:mb-0">
                 Ta strona używa plików cookie, aby poprawić Twoje doświadczenie.
