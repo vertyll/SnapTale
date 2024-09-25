@@ -72,23 +72,24 @@
                   :color="isLiked ? '#F02C56' : ''"
                 />
               </button>
-              <span class="text-xs text-gray-800 font-semibold">{{
-                post.likes.length
-              }}</span>
+              <span class="text-xs text-gray-800 font-semibold">
+                {{ post.likes.length }}</span>
             </div>
 
             <div class="pb-4 text-center">
               <div class="rounded-full bg-gray-200 p-2 cursor-pointer">
                 <Icon name="bx:bxs-message-rounded-dots" size="25" />
               </div>
-              <span class="text-xs text-gray-800 font-semibold">43</span>
+              <span class="text-xs text-gray-800 font-semibold">
+                {{ post.comments.length }}
+              </span>
             </div>
 
             <div class="text-center">
               <div class="rounded-full bg-gray-200 p-2 cursor-pointer">
                 <Icon name="ri:share-forward-fill" size="25" />
               </div>
-              <span class="text-xs text-gray-800 font-semibold">55</span>
+              <span class="text-xs text-gray-800 font-semibold">-</span>
             </div>
           </div>
         </div>
