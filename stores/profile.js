@@ -8,8 +8,9 @@ export const useProfileStore = defineStore("profile", {
     bio: "",
     image: "",
     post: null,
-    posts: null,
+    posts: [],
     allLikes: 0,
+    followCount: 0,
   }),
   actions: {
     async getProfile(id) {
@@ -24,15 +25,20 @@ export const useProfileStore = defineStore("profile", {
       this.$state.posts = res.data.posts;
 
       this.allLikesCount();
+      this.followCount = await this.getFollowCount(id);
+    },
+
+    async getFollowCount(userId) {
+      const { $axios } = useNuxtApp();
+      let res = await $axios.get(`/api/follows/count/${userId}`);
+      return res.data.follow_count || 0;
     },
 
     allLikesCount() {
       this.allLikes = 0;
       for (let i = 0; i < this.posts.length; i++) {
         const post = this.posts[i];
-        for (let j = 0; j < post.likes.length; j++) {
-          this.allLikes++;
-        }
+        this.allLikes += post.likes.length;
       }
     },
 
@@ -41,7 +47,9 @@ export const useProfileStore = defineStore("profile", {
       this.$state.name = "";
       this.$state.bio = "";
       this.$state.image = "";
-      this.$state.posts = null;
+      this.$state.posts = [];
+      this.$state.allLikes = 0;
+      this.$state.followCount = 0;
     },
   },
   persist: true,

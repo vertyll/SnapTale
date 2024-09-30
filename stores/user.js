@@ -159,6 +159,26 @@ export const useUserStore = defineStore("user", {
       this.$state.bio = "";
       this.$state.image = "";
     },
+
+    async followUser(followedUserId) {
+      const { $axios } = useNuxtApp();
+      let res = await $axios.post("/api/follows", {
+        followed_user_id: followedUserId,
+      });
+      return res.data;
+    },
+
+    async unfollowUser(followedUserId) {
+      const { $axios } = useNuxtApp();
+      let res = await $axios.delete(`/api/follows/${followedUserId}`);
+      return res.data;
+    },
+
+    async checkIfFollowing(followedUserId) {
+      const { $axios } = useNuxtApp();
+      let res = await $axios.get(`/api/follows/check/${followedUserId}`);
+      return res.data.is_following;
+    },
   },
   persist: true,
 });
