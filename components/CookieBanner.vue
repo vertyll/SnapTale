@@ -17,17 +17,33 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const setCookie = (name, value, days) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+};
+
+const getCookie = (name) => {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+};
+
 const showBanner = ref(false);
 
 onMounted(() => {
-    const cookiesAccepted = localStorage.getItem("cookies_accepted");
+    const cookiesAccepted = getCookie("cookies_accepted");
     if (!cookiesAccepted) {
         showBanner.value = true;
     }
 });
 
 const acceptCookies = () => {
-    localStorage.setItem("cookies_accepted", "true");
+    setCookie("cookies_accepted", "true", 365);
     showBanner.value = false;
 };
 </script>
