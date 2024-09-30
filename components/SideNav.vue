@@ -24,26 +24,6 @@
         Zobacz wszystkie
       </button>
 
-      <div v-if="$userStore.id">
-        <div class="border-b lg:ml-2 mt-2" />
-
-        <div class="lg:block hidden text-xs text-gray-600 font-semibold pt-4 pb-2 px-2">
-          Obserwujące konta
-        </div>
-
-        <div class="lg:hidden block pt-3" />
-
-        <div v-if="$generalStore.following" v-for="fol in filteredFollowing" :key="fol.id">
-          <div @click="isLoggedIn(fol)" class="cursor-pointer">
-            <MenuItemFollow :user="fol" />
-          </div>
-        </div>
-
-        <button class="lg:block hidden text-[#bc2cf0] pt-1.5 pl-2 text-[13px]">
-          Zobacz więcej
-        </button>
-      </div>
-
       <div class="lg:block hidden border-b lg:ml-2 mt-2" />
 
       <div class="lg:block hidden text-[11px] text-gray-500">
@@ -56,7 +36,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
 const { $generalStore, $userStore } = useNuxtApp();
 const route = useRoute();
 const router = useRouter();
@@ -68,8 +47,4 @@ const isLoggedIn = (fol) => {
   }
   setTimeout(() => router.push(`/profile/${fol.id}`), 200);
 };
-
-const filteredFollowing = computed(() => {
-  return $generalStore.following.filter((fol) => fol.id !== $userStore.id);
-});
 </script>

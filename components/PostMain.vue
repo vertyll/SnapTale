@@ -14,11 +14,10 @@
           </span>
         </button>
 
-        <button @click="toggleFollow"
-          :class="isFollowing ? 'bg-gray-300 text-black' : 'border text-[#bc2cf0] hover:bg-[#ffeef2]'"
-          class="text-[15px] px-[21px] py-0.5 border-[#bc2cf0] font-semibold rounded-md">
-          {{ isFollowing ? 'Przestań śledzić' : 'Obserwuj' }}
-        </button>
+        <!-- <button
+          class="border text-[15px] px-[21px] py-0.5 border-[#bc2cf0] text-[#bc2cf0] hover:bg-[#ffeef2] font-semibold rounded-md">
+          Obserwuj
+        </button> -->
       </div>
       <div class="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px]">
         {{ post.text }}
@@ -80,7 +79,6 @@ const { post } = toRefs(props);
 const router = useRouter();
 
 let video = ref(null);
-let isFollowing = ref(false);
 
 onMounted(() => {
   const postElement = document.getElementById(`PostMain-${post.value.id}`);
@@ -104,8 +102,6 @@ onMounted(() => {
 
     observer.observe(postElement);
   }
-
-  isFollowing.value = await $userStore.checkIfFollowing(post.value.user.id);
 });
 
 onBeforeUnmount(() => {
@@ -165,22 +161,5 @@ const displayPost = (post) => {
   $generalStore.setBackUrl("/");
   $generalStore.selectedPost = null;
   setTimeout(() => router.push(`/post/${post.id}`), 200);
-};
-
-const toggleFollow = async () => {
-  if (!$userStore.id) {
-    $generalStore.isLoginOpen = true;
-    return;
-  }
-  try {
-    if (isFollowing.value) {
-      await $userStore.unfollowUser(post.value.user.id);
-    } else {
-      await $userStore.followUser(post.value.user.id);
-    }
-    isFollowing.value = !isFollowing.value;
-  } catch (error) {
-    console.log(error);
-  }
 };
 </script>
