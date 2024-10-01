@@ -6,9 +6,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   const instance = axios.create({
     baseURL: config.public.apiBaseUrl,
     withCredentials: true,
+    withXSRFToken: true,
   });
-
-  instance.defaults.withXSRFToken = true;
 
   nuxtApp.provide("axios", instance);
 });

@@ -173,12 +173,6 @@ export const useUserStore = defineStore("user", {
       let res = await $axios.delete(`/api/follows/${followedUserId}`);
       return res.data;
     },
-
-    async checkIfFollowing(followedUserId) {
-      const { $axios } = useNuxtApp();
-      let res = await $axios.get(`/api/follows/check/${followedUserId}`);
-      return res.data.is_following;
-    },
   },
   persist: true,
 });

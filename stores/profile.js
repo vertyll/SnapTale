@@ -11,45 +11,52 @@ export const useProfileStore = defineStore("profile", {
     posts: [],
     allLikes: 0,
     followCount: 0,
+    isFollowing: false,
   }),
   actions: {
     async getProfile(id) {
       this.resetUser();
       const { $axios } = useNuxtApp();
-      let res = await $axios.get(`/api/profiles/${id}`);
 
-      this.$state.id = res.data.user[0].id;
-      this.$state.name = res.data.user[0].name;
-      this.$state.bio = res.data.user[0].bio;
-      this.$state.image = res.data.user[0].image;
-      this.$state.posts = res.data.posts;
+      const [profileRes, followCountRes, isFollowingRes] = await Promise.all([
+        $axios.get(`/api/profiles/${id}`),
+        $axios.get(`/api/follows/count/${id}`),
+        $axios.get(`/api/follows/check/${id}`),
+      ]);
+
+      const userData = profileRes.data.user[0];
+      this.$state.id = userData.id;
+      this.$state.name = userData.name;
+      this.$state.bio = userData.bio;
+      this.$state.image = userData.image;
+      this.$state.posts = profileRes.data.posts;
 
       this.allLikesCount();
-      this.followCount = await this.getFollowCount(id);
+      this.followCount = followCountRes.data.follow_count || 0;
+      this.isFollowing = isFollowingRes.data.is_following;
     },
-
     async getFollowCount(userId) {
       const { $axios } = useNuxtApp();
       let res = await $axios.get(`/api/follows/count/${userId}`);
       return res.data.follow_count || 0;
     },
-
     allLikesCount() {
-      this.allLikes = 0;
-      for (let i = 0; i < this.posts.length; i++) {
-        const post = this.posts[i];
-        this.allLikes += post.likes.length;
-      }
+      this.allLikes = this.posts.reduce(
+        (sum, post) => sum + post.likes.length,
+        0
+      );
     },
-
     resetUser() {
-      this.$state.id = "";
-      this.$state.name = "";
-      this.$state.bio = "";
-      this.$state.image = "";
-      this.$state.posts = [];
-      this.$state.allLikes = 0;
-      this.$state.followCount = 0;
+      Object.assign(this.$state, {
+        id: "",
+        name: "",
+        bio: "",
+        image: "",
+        posts: [],
+        allLikes: 0,
+        followCount: 0,
+        isFollowing: false,
+      });
     },
   },
   persist: true,
