@@ -68,16 +68,16 @@ WORKDIR /var/www/html
 # Install runtime dependencies
 RUN apk add --no-cache \
     curl \
-    libpng \
-    libjpeg-turbo \
-    freetype \
-    oniguruma \
-    libxml2 \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    oniguruma-dev \
+    libxml2-dev \
     mysql-client \
     bash \
     netcat-openbsd \
     dos2unix \
-    libzip \
+    libzip-dev \
     zlib-dev \
     icu-libs \
     nginx \
