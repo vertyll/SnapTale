@@ -90,10 +90,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY --from=build /var/www/html /var/www/html
 
-# Copy nginx and supervisor configs
+# Copy php, nginx and supervisor configs
 COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php/conf.d/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 
 # Copy entrypoint script and configure everything in one layer
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
