@@ -11,6 +11,7 @@ use App\Services\FileService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -67,8 +68,11 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($id);
-            if (! is_null($post->video) && file_exists(public_path().$post->video)) {
-                unlink(public_path().$post->video);
+            if (!is_null($post->video)) {
+                $videoPath = str_replace('/storage/', '', $post->video);
+                if (Storage::disk('public')->exists($videoPath)) {
+                    Storage::disk('public')->delete($videoPath);
+                }
             }
             $post->delete();
 

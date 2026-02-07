@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
@@ -12,16 +13,12 @@ class FileService
     {
         $image = Image::make($request->file('image'));
 
-        if (! empty($model->image)) {
-            $currentImage = public_path().$model->image;
-
-            if (file_exists($currentImage) && $currentImage != public_path().'/user-placeholder.png') {
-                unlink($currentImage);
+        if (!empty($model->image)) {
+            $currentImagePath = str_replace('/storage/', '', $model->image);
+            if (Storage::disk('public')->exists($currentImagePath)) {
+                Storage::disk('public')->delete($currentImagePath);
             }
         }
-
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
 
         $image->crop(
             $request->width,
@@ -30,9 +27,13 @@ class FileService
             $request->top
         );
 
-        $name = time().'.'.$extension;
-        $image->save(public_path().'/files/'.$name);
-        $model->image = '/files/'.$name;
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $name = time() . '.' . $extension;
+        $path = 'files/' . $name;
+
+        Storage::disk('public')->put($path, (string) $image->encode());
+
+        $model->image = Storage::url($path);
 
         return $model;
     }
@@ -40,10 +41,10 @@ class FileService
     public function addVideo($model, $request)
     {
         $video = $request->file('video');
-        $extension = $video->getClientOriginalExtension();
-        $name = time().'.'.$extension;
-        $video->move(public_path().'/files/', $name);
-        $model->video = '/files/'.$name;
+        $name = time() . '.' . $video->getClientOriginalExtension();
+        $path = $video->storeAs('files', $name, 'public');
+
+        $model->video = Storage::url($path);
 
         return $model;
     }
