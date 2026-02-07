@@ -109,8 +109,9 @@ RUN dos2unix /usr/local/bin/docker-entrypoint.sh \
     && echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.interned_strings_buffer=16" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.max_accelerated_files=10000" >> /usr/local/etc/php/conf.d/opcache.ini \
-    && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini
-
+    && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini \
+    && mkdir -p /var/www/html/storage/{app/{public,private},framework/{cache/data,sessions,testing,views},logs}
+    
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 
