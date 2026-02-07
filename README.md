@@ -1,5 +1,5 @@
 # SnapTale
-## Link: https://snaptale.vertyll.usermd.net/
+## Link: https://snaptale.vertyll.dev
 
 ## Założenia projektu 
 
