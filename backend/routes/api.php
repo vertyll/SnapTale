@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\GlobalController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/health', [HealthController::class, 'index']);
+Route::get('/ping', [HealthController::class, 'ping']);
 
 Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
 Route::get('/home', [HomeController::class, 'index']);
