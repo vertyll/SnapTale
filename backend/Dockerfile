@@ -101,7 +101,6 @@ COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN dos2unix /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh \
     && chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache \
     && mkdir -p /var/www/html/public/storage \
     && chown -R www-data:www-data /var/www/html/public/storage \
