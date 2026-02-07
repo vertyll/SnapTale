@@ -64,7 +64,6 @@ FROM php:${PHP_VERSION}-fpm-alpine AS production
 
 COPY --from=base /usr/local/lib/php/extensions /usr/local/lib/php/extensions
 COPY --from=base /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
-COPY --from=base /usr/local/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
