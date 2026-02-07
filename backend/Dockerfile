@@ -78,6 +78,7 @@ RUN apk add --no-cache \
     netcat-openbsd \
     dos2unix \
     libzip \
+    zlib-dev \
     icu-libs \
     nginx \
     supervisor \
