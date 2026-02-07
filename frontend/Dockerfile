@@ -1,4 +1,4 @@
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
 
 # Base stage
 FROM node:${NODE_VERSION}-alpine AS base

@@ -1,4 +1,3 @@
-# Laravel Backend Dockerfile
 ARG PHP_VERSION=8.4
 
 # Base stage
@@ -63,27 +62,28 @@ RUN composer dump-autoload --optimize \
 # Production stage
 FROM php:${PHP_VERSION}-fpm-alpine AS production
 
-WORKDIR /var/www/html
+COPY --from=base /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=base /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
+COPY --from=base /usr/local/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
-    curl \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    oniguruma-dev \
-    libxml2-dev \
-    mysql-client \
-    bash \
-    netcat-openbsd \
-    dos2unix \
-    libzip-dev \
-    zlib-dev \
     icu-libs \
+    libpng \
+    libjpeg-turbo \
+    freetype \
+    oniguruma \
+    libxml2 \
+    libzip \
+    zlib \
     nginx \
     supervisor \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip intl opcache
+    bash \
+    curl \
+    mysql-client \
+    dos2unix
+
+WORKDIR /var/www/html
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
