@@ -250,7 +250,7 @@ onMounted(async () => {
   try {
     await $generalStore.getPostById(route.params.id);
   } catch (error) {
-    if (error && error.response.status === 400) {
+    if (error?.response?.status === 400) {
       router.push("/");
     }
   }
