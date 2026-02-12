@@ -116,29 +116,25 @@ jobs:
           script: |
             cd ~/podman/compose
             
-            echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin > /dev/null 2>&1
             
             # Pull images
             echo "=== Pulling images ==="
-            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest
-            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:latest
+            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest > /dev/null 2>&1
+            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:latest > /dev/null 2>&1
             
             # Update containers
-            podman-compose -f snaptale.yml up -d
+            podman-compose -f snaptale.yml up -d > /dev/null 2>&1
             
             sleep 15
             
             # Check backend status
             echo "=== Backend status ==="
             podman ps | grep snaptale-backend || echo "Backend container not running!"
-            echo "=== Backend logs ==="
-            podman logs --tail 30 snaptale-backend
             
             # Check frontend status
             echo "=== Frontend status ==="
             podman ps | grep snaptale-frontend || echo "Frontend container not running!"
-            echo "=== Frontend logs ==="
-            podman logs --tail 30 snaptale-frontend
             
             # Healthcheck backend
             echo "=== Backend healthcheck ==="
